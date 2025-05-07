@@ -18,7 +18,25 @@ Este proyecto consiste en una API para consultar y visualizar información sobre
 
 ## Estructura del Proyecto
 
-### Archivos Principales
+### Organización de Archivos
+
+El proyecto debe tener la siguiente estructura de directorios y archivos:
+
+```
+.
+├── __pycache__/
+├── sql/                      # Scripts SQL para inicializar la base de datos
+├── database.py               # Conexión a la base de datos
+├── docker-compose.yml        # Configuración de servicios Docker
+├── Dockerfile                # Instrucciones para la imagen Docker
+├── formato.py                # Formateo de tablas HTML
+├── main.py                   # Punto de entrada de la API
+├── pandas_consultas.py       # Consultas avanzadas con pandas
+├── requirements.txt          # Dependencias del proyecto
+└── seaborn_graficas.py       # Generación de gráficos
+```
+
+### Descripción de Archivos Principales
 
 - **main.py**: Punto de entrada de la aplicación FastAPI y definición de todos los endpoints.
 - **database.py**: Módulo para la conexión y operaciones con la base de datos MySQL.
@@ -43,7 +61,11 @@ git clone <url-del-repositorio>
 cd <nombre-del-directorio>
 ```
 
-2. Inicia los servicios con Docker Compose:
+2. Asegúrate de que la estructura de archivos sea la correcta según se detalla en la sección "Estructura del Proyecto".
+
+3. Asegúrate de crear una carpeta `sql/` en la raíz del proyecto. Esta carpeta debe contener los scripts SQL necesarios para inicializar la base de datos con las tablas y datos de videojuegos.
+
+4. Inicia los servicios con Docker Compose:
 
 ```bash
 docker-compose up -d
@@ -54,9 +76,9 @@ Este comando levantará tres servicios:
 - **db**: Base de datos MySQL en el puerto 3308
 - **phpmyadmin**: Interfaz de administración de la base de datos en el puerto 8086
 
-3. Espera unos segundos para que la base de datos se inicialice correctamente.
+5. Espera unos segundos para que la base de datos se inicialice correctamente.
 
-4. Verifica que la API esté funcionando correctamente accediendo a:
+6. Verifica que la API esté funcionando correctamente accediendo a:
 ```
 http://localhost:8085
 ```
@@ -144,7 +166,7 @@ http://localhost:8085/docs
 
 3. Verifica que la base de datos esté funcionando correctamente accediendo a phpMyAdmin:
 ```
-http://localhost:8085/docs
+http://localhost:8086
 ```
 Inicia sesión con usuario: `root` y contraseña: `rootpassword`
 
@@ -195,6 +217,13 @@ Si la base de datos no se inicializa correctamente, puede ser necesario reinicia
 ```bash
 docker-compose down
 docker-compose up -d
+```
+
+Asegúrate de que la carpeta `sql/` contenga los scripts SQL necesarios y que estos tengan permiso de lectura:
+
+```bash
+ls -la sql/
+chmod +r sql/*.sql  # Si es necesario dar permisos de lectura
 ```
 
 ### La API no responde
